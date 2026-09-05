@@ -1,28 +1,25 @@
-# Atharv Chaudhari — Anime Nature × Future Portfolio
+# Atharv Chaudhari — Cinematic Anime Nature Portfolio
 
-A personal portfolio designed as a cinematic exploration rather than a product dashboard.
+Personal portfolio built as an exploration journey: lush jungle, waterfall, river, cliffs, ruins and subtle technology.
 
 ## Visual direction
 
-**Uncharted-style cinematic exploration + Japanese anime atmosphere + subtle futuristic robotics.**
+**Cinematic adventure game atmosphere + Japanese anime beauty + understated futuristic robotics.**
 
-The environment stays predominantly natural:
-- lush daytime jungle
-- river and large waterfall
-- cliffs, rocks and dense trees
-- warm sunlight and atmospheric mist
-- dusk mode remains a natural forest rather than a cyberpunk/night-sky interface
+Nature is the dominant visual language. Technology appears as a small discovery inside the world rather than as neon/cyberpunk UI.
 
-Technology is intentionally understated: a small ancient-looking structure in the 3D environment contains subtle geometric/energy details, representing the transition from nature and exploration into AI, autonomy and robotics.
+## Highlights
 
-## Stack
-
-- Next.js 14
-- React 18
-- TypeScript
-- Three.js / React Three Fiber / Drei
-- GSAP
-- Vercel-ready
+- Procedural Three.js jungle with many trees, vines, leaves and cliffs
+- Animated waterfall and river
+- Wooden bridge and weathered ruin
+- Subtle hidden-tech artifact
+- Flying bird silhouette and atmospheric particles
+- Daylight theme + natural dusk theme
+- Cinematic typography and scroll reveals
+- Personal experience, projects, skills, education, research, achievements and future vision
+- Next.js 14 + React + TypeScript + React Three Fiber + Drei
+- Vercel ready
 
 ## Run
 
@@ -31,8 +28,6 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:3000.
+## Vercel
 
-## Deploy
-
-Push the folder to GitHub and import the repository into Vercel. No server-side configuration is required.
+Push the project to GitHub and import the repository in Vercel. Build command and output are handled by Next.js.
