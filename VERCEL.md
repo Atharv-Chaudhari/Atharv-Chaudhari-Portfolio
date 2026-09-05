@@ -1,11 +1,8 @@
-# Vercel Deployment
+# Vercel
 
-1. Push this folder to GitHub.
-2. Import the repository into Vercel.
-3. Framework preset: Next.js.
-4. Build command: `npm run build`.
-5. No environment variables are required.
+Framework: Next.js
+Build command: `npm run build`
+Output: Next.js default
+Environment variables: none required
 
-## Important
-
-This fixed version does not import `gsap/ScrollTrigger` and does not include GSAP in `package.json`, so the previous Vercel TypeScript error is removed at the source.
+The project intentionally uses only Next.js, React and TypeScript. There is no GSAP/ScrollTrigger import and no Three.js runtime dependency, reducing Vercel build and browser-runtime risk.

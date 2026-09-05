@@ -1,42 +1,31 @@
-# Atharv Chaudhari — Cinematic Nature Portfolio
+# Atharv Chaudhari — Gameplay Portfolio
 
-A Next.js + React Three Fiber personal portfolio with a cinematic exploration aesthetic:
-lush jungle, waterfall, river, ruins, bridge, mountains, drifting leaves and subtle future-tech elements.
+A cinematic, anime-inspired, adventure-game portfolio for Vercel. The site uses large environmental artwork as the visual world and restrained CSS motion/parallax rather than forcing 3D everywhere.
 
-## Build-safe architecture
+## Included
+- Full-screen animated cinematic scenes
+- Mouse parallax and slow camera movement on scene artwork
+- Chapter-based game HUD and journey progress
+- Interactive project artifact modal
+- Timeline / experience expedition
+- Skills arsenal map
+- Research console
+- Robotics / future chapter
+- Responsive mobile navigation
+- Reduced-motion accessibility fallback
+- No GSAP, ScrollTrigger, Three.js or other fragile animation dependency
 
-- Next.js 14
-- React 18
-- TypeScript
-- React Three Fiber / Three.js
-- Drei
-- IntersectionObserver + CSS for scroll reveals
-- **No GSAP / ScrollTrigger dependency**
-
-The previous Vercel TypeScript failure came from importing `gsap/ScrollTrigger` without a declaration-resolvable module. This version removes that dependency completely.
-
-## Run locally
-
+## Run
 ```bash
 npm install
 npm run dev
 ```
 
-Production build:
-
+## Production
 ```bash
 npm run build
 npm start
 ```
 
-## Deploy to Vercel
-
-Import the project/repository into Vercel. The framework should be detected as Next.js automatically.
-
-Build command:
-
-```bash
-npm run build
-```
-
-No environment variables are required for the current portfolio.
+## Vercel
+Import the repository as a Next.js project. No environment variables are required.
