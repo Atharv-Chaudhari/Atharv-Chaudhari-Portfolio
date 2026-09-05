@@ -1,6 +1,28 @@
-# Anime 3D Personal Portfolio
+# Atharv Chaudhari — Anime Nature × Future Portfolio
 
-A production-oriented starter for a highly interactive personal portfolio using Next.js, React Three Fiber, Three.js and GSAP.
+A personal portfolio designed as a cinematic exploration rather than a product dashboard.
+
+## Visual direction
+
+**Uncharted-style cinematic exploration + Japanese anime atmosphere + subtle futuristic robotics.**
+
+The environment stays predominantly natural:
+- lush daytime jungle
+- river and large waterfall
+- cliffs, rocks and dense trees
+- warm sunlight and atmospheric mist
+- dusk mode remains a natural forest rather than a cyberpunk/night-sky interface
+
+Technology is intentionally understated: a small ancient-looking structure in the 3D environment contains subtle geometric/energy details, representing the transition from nature and exploration into AI, autonomy and robotics.
+
+## Stack
+
+- Next.js 14
+- React 18
+- TypeScript
+- Three.js / React Three Fiber / Drei
+- GSAP
+- Vercel-ready
 
 ## Run
 
@@ -9,47 +31,8 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:3000
+Open http://localhost:3000.
 
-## What is already included
+## Deploy
 
-- Light / dark theme with animated-compatible 3D scene
-- Procedural Three.js Japanese-anime-inspired forest environment
-- Waterfall particles and river
-- Trees, rocks, fireflies and atmospheric fog
-- Interactive 3D object
-- Auto-rotating scene with orbit interaction
-- Personal sections: About, Experience, Projects, Skills, Research, Vision, Contact
-- GSAP entrance and scroll reveals
-- Responsive mobile layout
-- Reduced-motion support
-
-## Replace
-
-Update `app/page.tsx` with your real:
-- experience
-- projects
-- education
-- certifications
-- achievements
-- research
-- links
-- email
-- resume
-
-For a real portfolio, add optimized GLB/GLTF assets under `public/` and load them with Drei's `useGLTF`.
-
-## Important
-
-This is a strong starter architecture, not a finished factual resume. Replace placeholder personal data before publishing.
-
-
-## Design Direction — Anime × Futuristic Robotics
-
-The portfolio is intentionally personal rather than product-dashboard styled. The visual language combines:
-- cinematic Japanese-anime-inspired forest, waterfall and river environment
-- holographic AI/robotics core in the 3D hero scene
-- futuristic HUD micro-labels and energy-ring motifs
-- personal journey, projects, education, research and future vision sections
-- light/dark atmospheric themes
-- responsive Next.js + Three.js implementation suitable for Vercel
+Push the folder to GitHub and import the repository into Vercel. No server-side configuration is required.
