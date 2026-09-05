@@ -1,33 +1,42 @@
-# Atharv Chaudhari — Cinematic Anime Nature Portfolio
+# Atharv Chaudhari — Cinematic Nature Portfolio
 
-Personal portfolio built as an exploration journey: lush jungle, waterfall, river, cliffs, ruins and subtle technology.
+A Next.js + React Three Fiber personal portfolio with a cinematic exploration aesthetic:
+lush jungle, waterfall, river, ruins, bridge, mountains, drifting leaves and subtle future-tech elements.
 
-## Visual direction
+## Build-safe architecture
 
-**Cinematic adventure game atmosphere + Japanese anime beauty + understated futuristic robotics.**
+- Next.js 14
+- React 18
+- TypeScript
+- React Three Fiber / Three.js
+- Drei
+- IntersectionObserver + CSS for scroll reveals
+- **No GSAP / ScrollTrigger dependency**
 
-Nature is the dominant visual language. Technology appears as a small discovery inside the world rather than as neon/cyberpunk UI.
+The previous Vercel TypeScript failure came from importing `gsap/ScrollTrigger` without a declaration-resolvable module. This version removes that dependency completely.
 
-## Highlights
-
-- Procedural Three.js jungle with many trees, vines, leaves and cliffs
-- Animated waterfall and river
-- Wooden bridge and weathered ruin
-- Subtle hidden-tech artifact
-- Flying bird silhouette and atmospheric particles
-- Daylight theme + natural dusk theme
-- Cinematic typography and scroll reveals
-- Personal experience, projects, skills, education, research, achievements and future vision
-- Next.js 14 + React + TypeScript + React Three Fiber + Drei
-- Vercel ready
-
-## Run
+## Run locally
 
 ```bash
 npm install
 npm run dev
 ```
 
-## Vercel
+Production build:
 
-Push the project to GitHub and import the repository in Vercel. Build command and output are handled by Next.js.
+```bash
+npm run build
+npm start
+```
+
+## Deploy to Vercel
+
+Import the project/repository into Vercel. The framework should be detected as Next.js automatically.
+
+Build command:
+
+```bash
+npm run build
+```
+
+No environment variables are required for the current portfolio.

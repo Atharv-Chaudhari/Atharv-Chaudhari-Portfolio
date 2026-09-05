@@ -90,23 +90,22 @@ const achievements = [
 ];
 
 export default function Home() {
-  const [dark, setDark] = useState(true);
+  const [dark, setDark] = useState(false);
   const root = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const setup = async () => {
-      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
-      gsap.registerPlugin(ScrollTrigger);
-      const ctx = gsap.context(() => {
-        gsap.from(".hero-copy > *", { y: 45, opacity: 0, duration: 1.1, stagger: .12, ease: "power3.out" });
-        gsap.utils.toArray<HTMLElement>(".reveal").forEach((el) => {
-          gsap.from(el, { y: 60, opacity: 0, duration: 1, scrollTrigger: { trigger: el, start: "top 82%" } });
-        });
-      }, root);
-      return () => ctx.revert();
-    };
-    const cleanup = setup();
-    return () => { cleanup.then(fn => fn?.()); };
+    const elements = Array.from(document.querySelectorAll<HTMLElement>('.reveal'));
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+    elements.forEach((element) => observer.observe(element));
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -215,7 +214,7 @@ export default function Home() {
         <section id="contact" className="section contact reveal">
           <div className="section-label">09 / CONNECT</div>
           <h2>Let's build<br/><em>what comes next.</em></h2>
-          <div className="contact-links"><a href="mailto:ahc382000@gmail.com">ahc382000@gmail.com ↗</a><a href="https://www.linkedin.com/in/atharv-chaudhari" target="_blank">LinkedIn ↗</a><a href="#">GitHub ↗</a><a href="#">Kaggle ↗</a><a href="#">Resume ↗</a></div>
+          <div className="contact-links"><a href="mailto:ahc382000@gmail.com">ahc382000@gmail.com ↗</a><a href="https://www.linkedin.com/in/atharv-chaudhari" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="#">GitHub ↗</a><a href="#">Kaggle ↗</a><a href="#">Resume ↗</a></div>
         </section>
       </main>
       <footer><span>© 2026 ATHARV CHAUDHARI</span><span>AI • ML • DATA • ROBOTICS</span><span>BUILT WITH THREE.JS</span></footer>
