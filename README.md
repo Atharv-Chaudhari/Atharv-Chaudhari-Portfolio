@@ -1,24 +1,32 @@
-# Atharv Chaudhari — Gameplay Portfolio V3
+# Atharv Chaudhari — Cinematic Gameplay Portfolio v4
 
-This version is intentionally cinematic rather than text-heavy. The portfolio is presented as an adventure-game journey: the jungle image is the world, the chapter HUD is the navigation, and a restrained React Three Fiber layer adds depth with ambient particles rather than filling the page with 3D objects.
+A game-like, cinematic portfolio built for Vercel. It deliberately uses restrained 3D-style motion rather than flooding the page with WebGL objects.
 
-## Fixed in V3
-- No GSAP / ScrollTrigger, so the previous Vercel TypeScript error is removed.
-- Sections have safe spacing and bottom clearance for the HUD.
-- Desktop and mobile navigation are separate and reachable.
-- Mobile chapter bar is horizontally scrollable.
-- Project controls stay inside a dedicated discovery panel.
-- Proper AC favicon / app icon.
-- Reduced-motion support.
-- Lightweight 3D particle layer only.
+## What is included
+- Multi-chapter exploration flow with 9 scenes/chapters
+- Animated camera/parallax, fog, birds, leaves and water shimmer
+- Keyboard navigation: A/D and Left/Right
+- Free Explore mode with animated camera movement
+- Project discovery cards with modal artifact dossiers
+- Experience / research / robotics / future discovery panels
+- Desktop HUD + mobile horizontal chapter rail
+- Mobile-specific layout and collision-safe spacing
+- Custom AC favicon
+- No GSAP, no ScrollTrigger, no type-declaration dependency
+- All visual assets are local in `public/assets`
 
 ## Run
+
+```bash
 npm install
 npm run dev
+```
 
 ## Production
+
+```bash
 npm run build
 npm start
+```
 
-## Vercel
-Import the repository and use the default Next.js settings. No environment variables are required.
+Deploy the repository directly to Vercel. No environment variables are required for the current build.

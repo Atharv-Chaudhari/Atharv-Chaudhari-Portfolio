@@ -1,6 +1,8 @@
 # Vercel
-Framework: Next.js
-Build command: npm run build
-No environment variables required.
 
-The project intentionally does not use GSAP or ScrollTrigger.
+Framework preset: Next.js
+Build command: `next build`
+Install command: `npm install`
+Output: `.next`
+
+No GSAP / ScrollTrigger is used. No external API or environment variable is required.
