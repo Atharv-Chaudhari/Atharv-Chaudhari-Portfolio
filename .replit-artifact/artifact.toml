@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Atharv Chaudhari Portfolio"
+description = "A cinematic, game-inspired portfolio showcasing Atharv Chaudhari's engineering work, projects, research, and future-facing robotics interests."
+version = "1.0.0"
+id = "artifacts/atharv-portfolio"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24683
+
+[services.development]
+run = "pnpm --filter @workspace/atharv-portfolio run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/atharv-portfolio", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/atharv-portfolio/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24683"
+BASE_PATH = "/"
