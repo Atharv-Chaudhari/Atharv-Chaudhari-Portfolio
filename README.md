@@ -1,25 +1,27 @@
-# Atharv Chaudhari — Cinematic Gameplay Portfolio V7
+# Atharv Chaudhari — Cinematic Gameplay Portfolio V5
 
-A cinematic expedition portfolio for Vercel.
-
-## What changed
-- Multiple distinct environments: jungle/waterfall, lost ruins, data archive, robotics frontier, horizon.
-- Animated GIF overlays for waterfall spray, birds and fireflies.
-- Lightweight 3D low-poly explorer character with an actual running cycle.
-- 3D is used only for the character layer — not for every element.
-- Keyboard/gameplay controls: A/D, arrows, M map, H HUD, Esc close.
-- Distinct actions per chapter rather than repeated scroll buttons.
-- Project artifacts open in an interactive archive.
-- Responsive mobile expedition dock.
-- Custom SVG favicon.
-- No GSAP, no ScrollTrigger.
-- Includes `@types/three` so the previous Vercel `three` declaration error is addressed.
+A cinematic, chapter-driven portfolio designed as an exploration experience rather than a traditional scrolling resume.
 
 ## Run
+
 ```bash
 npm install
-npm run build
-npm run start
+npm run dev
 ```
 
-Deploy the repository root to Vercel. The project uses Next.js 14.
+## Build
+
+```bash
+npm run build
+```
+
+No GSAP, ScrollTrigger, Three.js, or external animation library is required. The project uses React, CSS 3D/parallax, Web APIs, and a small canvas particle layer for reliability on Vercel.
+
+## Controls
+
+- Mouse wheel: move chapters
+- A / D: move chapters
+- Arrow keys: move chapters
+- Swipe: move chapters on mobile
+- Free Explore: cinematic camera movement
+- HUD: toggle interface
