@@ -1,32 +1,25 @@
-# Atharv Chaudhari — Cinematic Gameplay Portfolio v4
+# Atharv Chaudhari — Cinematic Gameplay Portfolio V7
 
-A game-like, cinematic portfolio built for Vercel. It deliberately uses restrained 3D-style motion rather than flooding the page with WebGL objects.
+A cinematic expedition portfolio for Vercel.
 
-## What is included
-- Multi-chapter exploration flow with 9 scenes/chapters
-- Animated camera/parallax, fog, birds, leaves and water shimmer
-- Keyboard navigation: A/D and Left/Right
-- Free Explore mode with animated camera movement
-- Project discovery cards with modal artifact dossiers
-- Experience / research / robotics / future discovery panels
-- Desktop HUD + mobile horizontal chapter rail
-- Mobile-specific layout and collision-safe spacing
-- Custom AC favicon
-- No GSAP, no ScrollTrigger, no type-declaration dependency
-- All visual assets are local in `public/assets`
+## What changed
+- Multiple distinct environments: jungle/waterfall, lost ruins, data archive, robotics frontier, horizon.
+- Animated GIF overlays for waterfall spray, birds and fireflies.
+- Lightweight 3D low-poly explorer character with an actual running cycle.
+- 3D is used only for the character layer — not for every element.
+- Keyboard/gameplay controls: A/D, arrows, M map, H HUD, Esc close.
+- Distinct actions per chapter rather than repeated scroll buttons.
+- Project artifacts open in an interactive archive.
+- Responsive mobile expedition dock.
+- Custom SVG favicon.
+- No GSAP, no ScrollTrigger.
+- Includes `@types/three` so the previous Vercel `three` declaration error is addressed.
 
 ## Run
-
 ```bash
 npm install
-npm run dev
-```
-
-## Production
-
-```bash
 npm run build
-npm start
+npm run start
 ```
 
-Deploy the repository directly to Vercel. No environment variables are required for the current build.
+Deploy the repository root to Vercel. The project uses Next.js 14.

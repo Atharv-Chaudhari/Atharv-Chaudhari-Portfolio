@@ -1,8 +1,14 @@
 # Vercel
 
 Framework preset: Next.js
-Build command: `next build`
-Install command: `npm install`
-Output: `.next`
 
-No GSAP / ScrollTrigger is used. No external API or environment variable is required.
+Build command:
+`npm run build`
+
+Install command:
+`npm install`
+
+Output:
+Next.js default.
+
+The codebase intentionally does not use GSAP/ScrollTrigger. Three.js is typed with `@types/three`.

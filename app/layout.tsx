@@ -3,10 +3,14 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Atharv Chaudhari — AI / ML Engineer",
-  description: "A cinematic interactive portfolio exploring AI, machine learning, agentic systems, data and robotics.",
-  icons: { icon: "/icon.svg", apple: "/icon.svg" },
+  description: "A cinematic expedition through Atharv Chaudhari's AI, ML, agentic systems and data engineering work.",
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/icon.svg"
+  }
 };
 
-export default function RootLayout({children}:{children:React.ReactNode}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return <html lang="en"><body>{children}</body></html>;
 }
