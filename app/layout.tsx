@@ -1,10 +1,10 @@
-import type { Metadata } from "next";
-import "./globals.css";
+import type { Metadata } from 'next';
+import './globals.css';
 
 export const metadata: Metadata = {
-  title: "Atharv Chaudhari — Cinematic AI / ML Portfolio",
-  description: "An interactive expedition through AI, machine learning, agentic systems, data and robotics.",
-  icons: { icon: "/icon.svg", shortcut: "/icon.svg", apple: "/icon.svg" },
+  title: 'Atharv Chaudhari | The Journey',
+  description: 'Cinematic portfolio — AI, ML, Agentic Systems, Data & Robotics.',
+  icons: { icon: '/icon.svg', shortcut: '/icon.svg', apple: '/icon.svg' },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

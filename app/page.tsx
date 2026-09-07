@@ -1,88 +1,113 @@
-"use client";
-import { useEffect, useState } from "react";
-import WorldFX from "../components/WorldFX";
+'use client';
 
-type Scene={id:string;chapter:string;title:string;line:string;location:string;image:string;accent:string;next:string;type:"nature"|"ruin"|"lab"|"future"};
-type Project={id:string;title:string;tag:string;stack:string;metric:string;story:string;artifact:string;detail:string};
+import dynamic from 'next/dynamic';
+import { useEffect, useMemo, useState } from 'react';
 
-const scenes:Scene[]=[
-{id:"home",chapter:"01 / THE TRAILHEAD",title:"Enter the Unknown",line:"AI · MACHINE LEARNING · DATA · AUTONOMY",location:"River Valley · 06:42",image:"/assets/01-trail.jpg",accent:"gold",next:"BEGIN EXPEDITION",type:"nature"},
-{id:"about",chapter:"02 / THE EXPLORER",title:"The Builder",line:"4+ YEARS · PRODUCTION AI / ML",location:"Canopy Ridge · 08:15",image:"/assets/05-canopy.jpg",accent:"green",next:"OPEN DOSSIER",type:"nature"},
-{id:"journey",chapter:"03 / THE ASCENT",title:"From Data to Systems",line:"ENGINEERING · CLOUD · SCALE",location:"Upper Falls · 10:28",image:"/assets/02-waterfall.jpg",accent:"gold",next:"TRACE JOURNEY",type:"nature"},
-{id:"projects",chapter:"04 / THE DISCOVERY",title:"The Hidden Temple",line:"AGENTS · ML · DATA PRODUCTS",location:"Temple Ruins · 13:04",image:"/assets/03-ruins.jpg",accent:"cyan",next:"OPEN ARTIFACTS",type:"ruin"},
-{id:"skills",chapter:"05 / THE ARSENAL",title:"Tools of the Expedition",line:"PYTHON · LANGGRAPH · GCP · AZURE",location:"Research Camp · 15:37",image:"/assets/04-river.jpg",accent:"gold",next:"INSPECT ARSENAL",type:"nature"},
-{id:"research",chapter:"06 / THE ARCHIVE",title:"Questions Worth Chasing",line:"NLP · KNOWLEDGE · INTELLIGENCE",location:"The Hidden Lab · 17:20",image:"/assets/06-dusk.jpg",accent:"cyan",next:"ENTER ARCHIVE",type:"lab"},
-{id:"robotics",chapter:"07 / THE FRONTIER",title:"Intelligence, Embodied",line:"ROBOTICS · AUTONOMY · HUMAN-AI",location:"Frontier Outpost · 18:11",image:"/assets/07-frontier.jpg",accent:"cyan",next:"ENTER FRONTIER",type:"future"},
-{id:"vision",chapter:"08 / THE HORIZON",title:"The Intelligent Future",line:"QUANTUM EVOLUTION · HUMAN-AI CONVERGENCE",location:"Horizon Point · 19:02",image:"/assets/08-horizon.jpg",accent:"gold",next:"LOOK AHEAD",type:"future"},
-{id:"contact",chapter:"09 / THE CONNECTION",title:"Continue the Expedition",line:"LET'S BUILD WHAT COMES NEXT",location:"Base Camp · 19:40",image:"/assets/01-trail.jpg",accent:"gold",next:"MAKE CONTACT",type:"nature"}
+const Ambient3D = dynamic(() => import('../components/Ambient3D'), { ssr: false });
+
+type Chapter = { id: string; no: string; title: string; nav: string; kicker: string; heading: string; copy: string };
+const chapters: Chapter[] = [
+  { id:'home', no:'01', title:'The Beginning', nav:'Home', kicker:'ENTER THE JOURNEY', heading:'A JOURNEY INTO THE INTELLIGENT FUTURE.', copy:'AI · ML · Agentic Systems · Data · Robotics' },
+  { id:'about', no:'02', title:'The Explorer', nav:'About', kicker:'THE EXPLORER', heading:'BUILDING INTELLIGENCE THAT MOVES.', copy:'Specialist Programmer · AI / ML Engineer · 4 years in production systems' },
+  { id:'journey', no:'03', title:'The Journey', nav:'Journey', kicker:'THE JOURNEY', heading:'FROM DATA FOUNDATIONS TO AUTONOMOUS SYSTEMS.', copy:'Enterprise data → ML engineering → agentic AI → intelligent systems' },
+  { id:'projects', no:'04', title:'The Discoveries', nav:'Projects', kicker:'THE DISCOVERIES', heading:'SYSTEMS BUILT FOR THE REAL WORLD.', copy:'Select a discovery and inspect the mission.' },
+  { id:'skills', no:'05', title:'The Arsenal', nav:'Skills', kicker:'THE ARSENAL', heading:'THE TOOLS BEHIND THE JOURNEY.', copy:'Agentic AI · ML · Data · Cloud · Backend' },
+  { id:'research', no:'06', title:'The Learning', nav:'Research', kicker:'THE LEARNING', heading:'ALWAYS MOVING BEYOND THE MAP.', copy:'M.Tech AI/ML · NLP · Cambridge Data Science & ML · continuous research' },
+  { id:'robotics', no:'07', title:'The Evolution', nav:'Robotics', kicker:'THE EVOLUTION', heading:'DIGITAL INTELLIGENCE BECOMES EMBODIED.', copy:'Perception · reasoning · action · adaptation' },
+  { id:'vision', no:'08', title:'The Future', nav:'Vision', kicker:'THE FUTURE', heading:'QUANTUM EVOLUTION. HUMAN-AI CONVERGENCE. ROBOTICS.', copy:'A long-horizon view of adaptive, collaborative intelligence.' },
+  { id:'contact', no:'09', title:'The Connection', nav:'Contact', kicker:'THE CONNECTION', heading:'THE NEXT CHAPTER STARTS HERE.', copy:'AI/ML engineering · intelligent systems · research · collaboration' },
 ];
 
-const projects:Project[]=[
-{id:"insights",title:"Dashboardless Insights",tag:"AGENTIC AI",stack:"LangChain · LangGraph · LangSmith · AGUI",metric:"60–70% faster insight retrieval",story:"Decision-ready answers without waiting for a dashboard.",artifact:"OBSERVATORY",detail:"Built for business users and 20+ stakeholders, turning questions into grounded, decision-ready answers."},
-{id:"monday",title:"Agent Monday",tag:"AUTOMATION",stack:"OpenAI Agents SDK · Celery · Kubernetes · FastAPI · OKTA",metric:"70% faster reporting · 99%+ weekly reliability",story:"Recurring reporting transformed into an autonomous operating loop.",artifact:"OPERATIONS",detail:"Production workflow combining agents, scheduling, APIs and resilient delivery mechanisms."},
-{id:"shopping",title:"Shopping Assistant",tag:"MULTI-AGENT",stack:"Google ADK · GCP · Retail AI",metric:"1K+ sessions · ~40% recommendation improvement",story:"A real-time shopping companion with memory and tools.",artifact:"RIVER MARKET",detail:"Multi-agent retail workflow designed around personalized recommendations and tool-aware conversations."},
-{id:"skillsmap",title:"Client Skillset Mapping",tag:"KNOWLEDGE AI",stack:"LangGraph · OCR · Enterprise Graph · NLP",metric:"~50% team-fit accuracy improvement",story:"People, skills and documents connected into one matching workflow.",artifact:"ARCHIVE",detail:"Knowledge-driven graph and NLP pipeline for discovering stronger team-to-skill alignment."},
-{id:"rdw",title:"RICOM RDW Migration",tag:"DATA ENGINEERING",stack:"PySpark · Databricks · ADLS Gen2 · Synapse",metric:"~40% ETL latency reduction · 14 data cubes",story:"A resilient enterprise data migration and optimization path.",artifact:"ENGINE ROOM",detail:"Large-scale ETL modernization focused on latency, reliability and reusable data structures."},
-{id:"assessnex",title:"AssessNex AI",tag:"RESEARCH / PRODUCT",stack:"Azure OpenAI · LangGraph · FastAPI · RAG",metric:"Multi-agent assessment generation",story:"Agent orchestration for intelligent educational assessment generation.",artifact:"ANCIENT LIBRARY",detail:"M.Tech project exploring Bloom calibration, RAG, multi-agent orchestration and validation."}
+const projects = [
+  ['Dashboardless Insights','LangChain · LangGraph · LangSmith · AGUI','20+ stakeholders · 60–70% faster insight retrieval'],
+  ['Agent Monday','OpenAI Agents SDK · Celery · Kubernetes · FastAPI · OKTA','70% faster reporting · 99%+ reliable weekly delivery'],
+  ['Shopping Assistant','Google ADK · GCP','1K+ sessions · ~40% recommendation accuracy improvement'],
+  ['Client Skillset Mapping','LangGraph · OCR · NLP · Enterprise Graph','~50% team-fit accuracy improvement'],
+  ['RICOM RDW Migration','PySpark · Databricks · ADLS Gen2 · Synapse','~40% ETL latency reduction · 14 data cubes'],
 ];
 
-const skills=["Python","LangChain","LangGraph","DeepAgents","MCP","Google ADK","OpenAI Agents SDK","ML Workflows","Feature Engineering","Model Serving","Evaluation","ETL / ELT","Feature Stores","GCP","Azure","Databricks","BigQuery","Vertex AI","Bigtable","FastAPI","PostgreSQL","REST APIs"];
-const journey=["B.Tech · CSE · CGPA 9.83","M.Tech · AI / ML · NLP","Specialist Programmer · Infosys","Cambridge · Data Science & ML · 2026"];
+export default function Page() {
+  const [active, setActive] = useState('home');
+  const [menu, setMenu] = useState(false);
+  const [explore, setExplore] = useState(false);
+  const [motion, setMotion] = useState(true);
+  const [project, setProject] = useState(0);
+  const [scene, setScene] = useState(0);
 
-function Icon({name}:{name:string}){const p:any={arrow:"M5 12h14m-6-6 6 6-6 6",play:"M8 5l11 7-11 7V5Z",close:"M5 5l14 14M19 5 5 19",menu:"M4 7h16M4 12h16M4 17h16",compass:"M12 3l3 6-3 12-3-12 3-6Z",plus:"M12 5v14M5 12h14"};return <svg viewBox="0 0 24 24"><path d={p[name]||p.arrow}/></svg>}
+  const activeIndex = useMemo(() => chapters.findIndex(c => c.id === active), [active]);
 
-export default function Page(){
- const [scene,setScene]=useState(0),[menu,setMenu]=useState(false),[sound,setSound]=useState(false),[modal,setModal]=useState<Project|null>(null),[hud,setHud]=useState(true),[explore,setExplore]=useState(false),[details,setDetails]=useState(false),[touchStart,setTouchStart]=useState<number|null>(null),[scrolled,setScrolled]=useState(false);
- const s=scenes[scene], progress=Math.round(scene/(scenes.length-1)*100);
- const move=(dir:number)=>setScene(v=>Math.max(0,Math.min(scenes.length-1,v+dir)));
- useEffect(()=>{const key=(e:KeyboardEvent)=>{if(modal){if(e.key==="Escape")setModal(null);return} if(e.key==="ArrowRight"||e.key.toLowerCase()==="d")move(1); if(e.key==="ArrowLeft"||e.key.toLowerCase()==="a")move(-1); if(e.key==="Escape"){setMenu(false);setExplore(false)}};addEventListener("keydown",key);return()=>removeEventListener("keydown",key)},[modal]);
- useEffect(()=>{const wheel=(e:WheelEvent)=>{if(Math.abs(e.deltaY)>45)move(e.deltaY>0?1:-1)};addEventListener("wheel",wheel,{passive:true});return()=>removeEventListener("wheel",wheel)},[]);
- useEffect(()=>{const onScroll=()=>setScrolled(window.scrollY>window.innerHeight*.65);addEventListener("scroll",onScroll,{passive:true});return()=>removeEventListener("scroll",onScroll)},[]);
- return <main className={`game scene-${s.type} accent-${s.accent} ${hud?"hud-on":"hud-off"} ${scrolled?"deep-scroll":""}`} onTouchStart={e=>setTouchStart(e.touches[0].clientX)} onTouchEnd={e=>{if(touchStart===null)return;const dx=e.changedTouches[0].clientX-touchStart;if(Math.abs(dx)>45)move(dx<0?1:-1);setTouchStart(null)}}>
-  <WorldFX intensity={s.type==="future"?1.5:1}/>
-  <div className="world-bg" key={s.id} style={{backgroundImage:`url(${s.image})`}}><div className="depth d1"/><div className="depth d2"/><div className="sun-glow"/><div className="birds">⌁　⌁　　　⌁</div><div className="mist"/></div>
-  <div className="grain"/>
-  <header className="topbar">
-   <button className="brand" onClick={()=>setScene(0)}><span className="brand-mark">AC</span><span><b>Atharv Chaudhari</b><small>AI / ML ENGINEER</small></span></button>
-   <nav>{scenes.map((x,i)=><button key={x.id} className={i===scene?"active":""} onClick={()=>setScene(i)}><span>{String(i+1).padStart(2,"0")}</span>{x.id}</button>)}</nav>
-   <div className="actions"><button onClick={()=>setSound(v=>!v)}>{sound?"◉ SOUND":"○ SOUND"}</button><button onClick={()=>setHud(v=>!v)}>HUD {hud?"ON":"OFF"}</button><button className="menu" onClick={()=>setMenu(v=>!v)}><Icon name={menu?"close":"menu"}/></button></div>
-  </header>
-  {menu&&<div className="menu-panel">{scenes.map((x,i)=><button key={x.id} onClick={()=>{setScene(i);setMenu(false)}}><span>{String(i+1).padStart(2,"0")}</span><b>{x.title}</b><small>{x.chapter}</small></button>)}</div>}
+  const go = (id: string) => {
+    setActive(id); setMenu(false);
+    document.getElementById(id)?.scrollIntoView({ behavior: motion ? 'smooth' : 'auto', block: 'start' });
+  };
 
-  <aside className="left-ui"><div className="compass"><Icon name="compass"/></div><span>EXPEDITION</span><div className="rail">{scenes.map((_,i)=><button key={i} className={i===scene?"on":""} onClick={()=>setScene(i)}>{String(i+1).padStart(2,"0")}</button>)}</div></aside>
+  useEffect(() => {
+    const els = chapters.map(c => document.getElementById(c.id)).filter(Boolean) as HTMLElement[];
+    const observer = new IntersectionObserver(entries => {
+      const visible = entries.filter(e => e.isIntersecting).sort((a,b) => b.intersectionRatio-a.intersectionRatio)[0];
+      if (visible) setActive(visible.target.id);
+    }, { threshold: [0.25, 0.55, 0.8] });
+    els.forEach(e => observer.observe(e));
+    return () => observer.disconnect();
+  }, []);
 
-  <section className="hero">
-   <div className="eyebrow"><i/> {s.chapter}</div><h1 key={s.id}>{s.title}</h1><p>{s.line}</p>
-   <div className="actions-main"><button className="gold-btn" onClick={()=>setDetails(true)}><Icon name="play"/>{s.next}</button><button className="outline-btn" onClick={()=>setExplore(true)}><Icon name="compass"/>FREE EXPLORE</button></div>
-   <div className="location"><span>◈</span>{s.location}</div>
-  </section>
+  useEffect(() => {
+    const key = (e: KeyboardEvent) => {
+      if (!explore) return;
+      if (e.key === 'Escape') setExplore(false);
+      if (e.key === 'ArrowRight' || e.key.toLowerCase() === 'd') go(chapters[Math.min(activeIndex+1, chapters.length-1)].id);
+      if (e.key === 'ArrowLeft' || e.key.toLowerCase() === 'a') go(chapters[Math.max(activeIndex-1, 0)].id);
+    };
+    window.addEventListener('keydown', key); return () => window.removeEventListener('keydown', key);
+  }, [explore, activeIndex, motion]);
 
-  <aside className="dossier">
-   <div className="dossier-top"><span>FIELD DOSSIER</span><span>AC / 2026</span></div><h2>ATHARV<br/><em>CHAUDHARI</em></h2><p>AI / ML Engineer building intelligent systems across data, agents and autonomy.</p>
-   <div className="quick"><b>4+</b><span>YEARS</span><b>12+</b><span>PROJECTS</span><b>5+</b><span>RESEARCH</span></div>
-   <button onClick={()=>setScene(1)}>VIEW PROFILE <Icon name="arrow"/></button>
-  </aside>
+  return <main className={`game ${explore ? 'exploring' : ''} ${motion ? '' : 'no-motion'}`}>
+    <div className="world" aria-hidden="true">
+      <div className={`world-image scene-${scene}`} />
+      <div className="world-depth" />
+      <div className="world-light" />
+      <Ambient3D />
+      <div className="world-vignette" />
+    </div>
 
-  <div className="scene-object">{s.type==="ruin"?<><span className="rune">◉</span><b>ANCIENT SIGNAL</b></>:s.type==="future"?<><span className="robot-orb">✦</span><b>FRONTIER SYSTEM</b></>:<><span className="relic">◇</span><b>DISCOVERY POINT</b></>}</div>
+    <header className="topbar">
+      <button className="brand" onClick={() => go('home')}><span className="logo">AC</span><span>Atharv Chaudhari</span></button>
+      <nav className={menu ? 'nav open' : 'nav'}>{chapters.map(c => <button className={active===c.id?'selected':''} key={c.id} onClick={() => go(c.id)}>{c.nav}</button>)}</nav>
+      <div className="top-right"><div className="role"><span>●</span><b>AI / ML Engineer</b><small>Building Intelligent Systems</small></div><button className="hamb" onClick={() => setMenu(!menu)} aria-label="Menu">☰</button></div>
+    </header>
 
-  <div className="bottom">
-   <div className="bar-meta"><span>JOURNEY PROGRESS</span><b>{progress}%</b></div><div className="bar"><i style={{width:`${Math.max(5,progress)}%`}}/></div>
-   <div className="chapters">{scenes.map((x,i)=><button key={x.id} className={i===scene?"selected":""} onClick={()=>setScene(i)}><strong>{String(i+1).padStart(2,"0")}</strong><span>{x.title}</span></button>)}</div>
-   <div className="bottom-actions"><span><kbd>A</kbd><kbd>D</kbd> MOVE</span><span><kbd>←</kbd><kbd>→</kbd> CHAPTER</span><button onClick={()=>setDetails(true)}>OPEN CURRENT CHAPTER <Icon name="arrow"/></button></div>
-  </div>
+    <aside className="left-rail">{chapters.map(c => <button key={c.id} className={active===c.id?'on':''} onClick={() => go(c.id)}><span>{c.no}</span></button>)}</aside>
 
-  <section className="content" id="discoveries">
-   <div className="content-head"><div><span>THE FIELD JOURNAL</span><h2>Explore the work.</h2></div><p>Choose a chapter. Open an artifact. Keep moving.</p></div>
-   <div className="artifact-grid">{projectSet.map((p,i)=><button className="artifact" key={p.id} onClick={()=>setModal(p)}><div className={`artifact-image ai-${i}`}><span>{String(i+1).padStart(2,"0")}</span><b>{p.artifact}</b><i>+</i></div><div className="artifact-copy"><small>{p.tag}</small><h3>{p.title}</h3><p>{p.metric}</p><em>OPEN ARTIFACT <Icon name="arrow"/></em></div></button>)}</div>
-   <div className="journey-block"><div><span>THE PATH</span><h2>Built across<br/><em>systems.</em></h2></div><div className="timeline">{journey.map((j,i)=><article key={j}><b>0{i+1}</b><p>{j}</p></article>)}</div></div>
-   <div className="arsenal"><div><span>THE ARSENAL</span><h2>Tools I use<br/>to build the world.</h2><button onClick={()=>setScene(4)}>INSPECT SKILLS <Icon name="arrow"/></button></div><div className="skill-cloud">{skills.map(x=><span key={x}>{x}</span>)}</div></div>
-   <div className="vision"><div className="vision-sun"/><div className="vision-copy"><span>08 / THE HORIZON</span><h2>Quantum evolution.<br/><em>Human–AI convergence.</em><br/>Embodied intelligence.</h2><p>The direction: intelligence that moves from screens into systems, environments and the physical world.</p><button onClick={()=>setScene(7)}>ENTER THE HORIZON <Icon name="arrow"/></button></div><div className="mountain-line"/></div>
-   <div className="contact"><span>09 / THE CONNECTION</span><h2>Ready for the<br/><em>next expedition?</em></h2><div><a href="mailto:ahc382000@gmail.com">EMAIL ME</a><a href="https://www.linkedin.com/in/atharv-chaudhari" target="_blank" rel="noreferrer">LINKEDIN</a></div></div>
-   <footer><b>AC</b><span>ATHARV CHAUDHARI · AI / ML ENGINEER</span><span>© 2026</span></footer>
-  </section>
+    <section id="home" className="hero section">
+      <div className="hero-copy panel-safe">
+        <span className="kicker">{chapters[0].kicker}</span>
+        <h1>A JOURNEY INTO THE<br/><em>INTELLIGENT FUTURE.</em></h1>
+        <p className="hero-sub">From data to decision.<br/>From models to autonomy.<br/>From AI to embodied intelligence.</p>
+        <button className="begin" onClick={() => { setExplore(true); go('about'); }}><span>◈</span> Begin Journey <b>→</b></button>
+        <div className="micro">EXPLORE · LEARN · BUILD · AUTOMATE</div>
+      </div>
+      <div className="player-mark"><div className="player-ring">AC</div><span>PLAYER // ATHARV</span></div>
+      <div className="profile glass"><small>PLAYER PROFILE</small><h2>Atharv Chaudhari</h2><p>AI / ML Engineer</p><div className="profile-stats"><span><b>4+</b> Years</span><span><b>12+</b> AI/ML projects</span><span><b>3×</b> Kaggle Expert</span></div></div>
+      <button className="scroll" onClick={() => go('about')}>↓ <span>Scroll to explore</span></button>
+    </section>
 
-  {details&&<div className="chapter-modal" onClick={()=>setDetails(false)}><div className="chapter-card" onClick={e=>e.stopPropagation()}><button className="close" onClick={()=>setDetails(false)}><Icon name="close"/></button><span>{s.chapter}</span><h2>{s.title}</h2><p>{s.line}</p><div className="chapter-actions"><button onClick={()=>{setDetails(false);if(scene===3)setModal(projects[0]);else if(scene===8)location.href="mailto:ahc382000@gmail.com";else document.getElementById("discoveries")?.scrollIntoView({behavior:"smooth"})}}>EXPLORE CHAPTER <Icon name="arrow"/></button><button onClick={()=>{setDetails(false);move(1)}}>NEXT CHAPTER <Icon name="arrow"/></button></div></div></div>}
-  {modal&&<div className="chapter-modal" onClick={()=>setModal(null)}><div className="project-modal" onClick={e=>e.stopPropagation()}><button className="close" onClick={()=>setModal(null)}><Icon name="close"/></button><span>{modal.tag} · {modal.artifact}</span><h2>{modal.title}</h2><strong>{modal.metric}</strong><p>{modal.story}</p><p className="detail">{modal.detail}</p><div className="chips">{modal.stack.split(" · ").map(x=><i key={x}>{x}</i>)}</div><div className="modal-actions"><button onClick={()=>setModal(null)}>BACK TO JOURNEY</button><button onClick={()=>{setModal(null);setExplore(true)}}>ENTER SCENE <Icon name="arrow"/></button></div></div></div>}
-  {explore&&<div className="explore"><div className="explore-bg" style={{backgroundImage:`url(${s.image})`}}/><div className="explore-depth"/><button className="exit" onClick={()=>setExplore(false)}>ESC · EXIT EXPLORE</button><div className="explore-hud"><span>FREE EXPLORE · {s.location}</span><h2>{s.title}</h2><p>Move through the scene. Watch the environment breathe. Discover what is hidden.</p><div><button onClick={()=>move(-1)}>← PREVIOUS</button><button onClick={()=>move(1)}>NEXT →</button></div></div><div className="explore-reticle">＋</div></div>}
- </main>
+    <section id="about" className="section content"><div className="content-wrap"><span className="kicker">02 · THE EXPLORER</span><h2>BUILDING INTELLIGENCE<br/><em>THAT MOVES.</em></h2><p className="lead">Production AI/ML, agentic systems, data engineering and scalable software — designed around useful outcomes.</p><div className="clean-grid"><article><small>MISSION</small><h3>Turn intelligence into meaningful impact.</h3><p>Specialist Programmer at Infosys with hands-on experience designing production-grade AI, ML and data systems.</p></article><div className="stats-grid"><div><b>4+</b><span>Years production</span></div><div><b>9.83</b><span>B.Tech CGPA</span></div><div><b>M.Tech</b><span>AI / ML · NLP</span></div><div><b>2026</b><span>Cambridge DS & ML</span></div></div></div></div></section>
+
+    <section id="journey" className="section content"><div className="content-wrap"><span className="kicker">03 · THE JOURNEY</span><h2>FOUR YEARS.<br/><em>ONE DIRECTION.</em></h2><div className="timeline">{[['2022','Foundation','B.Tech CSE · WIT Solapur'],['2023–24','Enterprise Systems','Data engineering · ML workflows'],['2024–26','Intelligent Systems','M.Tech AI/ML · NLP · Agentic AI'],['2026','Expansion','Cambridge Data Science & ML']].map((x,i)=><article key={x[0]}><i>{i+1}</i><small>{x[0]}</small><h3>{x[1]}</h3><p>{x[2]}</p></article>)}</div></div></section>
+
+    <section id="projects" className="section content"><div className="content-wrap wide"><span className="kicker">04 · THE DISCOVERIES</span><h2>SYSTEMS BUILT FOR THE<br/><em>REAL WORLD.</em></h2><div className="discovery"><div className="discovery-world"><span>DISCOVERY {String(project+1).padStart(2,'0')}</span><h3>{projects[project][0]}</h3><div className="scan"></div></div><article className="glass detail"><small>MISSION LOG</small><h3>{projects[project][0]}</h3><strong>{projects[project][1]}</strong><p>{projects[project][2]}</p><div className="project-nav"><button onClick={()=>setProject((project+projects.length-1)%projects.length)}>←</button><span>{project+1} / {projects.length}</span><button onClick={()=>setProject((project+1)%projects.length)}>→</button></div></article></div></div></section>
+
+    <section id="skills" className="section content"><div className="content-wrap wide"><span className="kicker">05 · THE ARSENAL</span><h2>THE TOOLS BEHIND<br/><em>THE JOURNEY.</em></h2><div className="arsenal">{[['01','Agentic AI','LangChain · LangGraph · DeepAgents · MCP · Google ADK · OpenAI Agents SDK'],['02','ML Engineering','ML workflows · feature engineering · serving · evaluation · monitoring'],['03','Data Engineering','ETL/ELT · pipelines · Feature Stores · optimization'],['04','Cloud & Data','GCP · Azure · Databricks · BigQuery · Vertex AI · Bigtable'],['05','Backend & Systems','Python · FastAPI · PostgreSQL · REST · scalable architectures']].map(x=><article key={x[0]}><small>{x[0]}</small><h3>{x[1]}</h3><p>{x[2]}</p></article>)}</div></div></section>
+
+    <section id="research" className="section content"><div className="content-wrap"><span className="kicker">06 · THE LEARNING</span><h2>BEYOND THE<br/><em>KNOWN MAP.</em></h2><div className="research"><article><small>2024–2026</small><h3>M.Tech AI & ML</h3><p>BITS Pilani · NLP specialization</p></article><article><small>2026</small><h3>Data Science & ML</h3><p>University of Cambridge · June–November 2026</p></article><article><small>CREDENTIALS</small><h3>Azure · Claude · Kaggle</h3><p>Azure Developer, Data Engineer & AI Engineer · Claude certifications · Kaggle 3× Expert</p></article></div></div></section>
+
+    <section id="robotics" className="section content"><div className="robot-stage"><div className="robot-copy"><span className="kicker">07 · THE EVOLUTION</span><h2>DIGITAL INTELLIGENCE<br/><em>BECOMES EMBODIED.</em></h2><p>Robotics is the next layer of the journey — perception, reasoning, action and adaptation.</p><button className="begin" onClick={()=>go('vision')}>Continue →</button></div><div className="robot"><div className="head"></div><div className="body"></div><div className="arm left"></div><div className="arm right"></div></div></div></section>
+
+    <section id="vision" className="section content"><div className="vision"><div><span className="kicker">08 · THE FUTURE</span><h2>QUANTUM EVOLUTION.<br/>HUMAN-AI CONVERGENCE.<br/><em>ROBOTICS.</em></h2><p>A long-horizon view of intelligence that collaborates with people, reasons across systems and increasingly interacts with the physical world.</p></div><div className="horizon"><i>HUMAN</i><i>AI</i><i>ROBOTICS</i></div></div></section>
+
+    <section id="contact" className="section content contact"><div className="content-wrap"><span className="kicker">09 · THE CONNECTION</span><h2>THE NEXT CHAPTER<br/><em>STARTS HERE.</em></h2><p>AI/ML engineering · intelligent systems · research · ambitious technical collaboration.</p><div className="contact-links"><a href="mailto:ahc382000@gmail.com">Email ↗</a><a href="https://www.linkedin.com/in/atharv-chaudhari" target="_blank" rel="noreferrer">LinkedIn ↗</a></div></div></section>
+
+    <footer className="hud"><div className="progress"><span>JOURNEY {String(Math.round((activeIndex+1)/chapters.length*100)).padStart(2,'0')}%</span><i><b style={{width:`${(activeIndex+1)/chapters.length*100}%`}}/></i></div><div className="chapters">{chapters.map(c=><button key={c.id} className={active===c.id?'active':''} onClick={()=>go(c.id)}><strong>{c.no}</strong><span>{c.title}</span></button>)}</div><div className="tools"><button onClick={()=>setExplore(!explore)}>◈ {explore?'EXIT':'EXPLORE'}</button><button onClick={()=>setMotion(!motion)}>✦ {motion?'MOTION':'STILL'}</button><button onClick={()=>setScene((scene+1)%2)}>◐ SCENE</button></div></footer>
+    {explore && <div className="explore-hint">EXPLORE MODE · A / D · ← / → · ESC</div>}
+  </main>;
 }
