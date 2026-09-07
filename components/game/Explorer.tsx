@@ -2,14 +2,13 @@
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, Float, PerspectiveCamera } from "@react-three/drei";
 import { useRef } from "react";
-import * as THREE from "three";
 
 function ExplorerModel() {
-  const group = useRef<THREE.Group>(null);
-  const leftLeg = useRef<THREE.Mesh>(null);
-  const rightLeg = useRef<THREE.Mesh>(null);
-  const leftArm = useRef<THREE.Mesh>(null);
-  const rightArm = useRef<THREE.Mesh>(null);
+  const group = useRef<any>(null);
+  const leftLeg = useRef<any>(null);
+  const rightLeg = useRef<any>(null);
+  const leftArm = useRef<any>(null);
+  const rightArm = useRef<any>(null);
 
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime();

@@ -143,9 +143,9 @@ export default function Home() {
       <div className="world" style={{ backgroundImage: `url(${current.scene})` }}>
         <div className="world-vignette" />
         <div className="world-mist" />
-        <img className="gif-layer waterfall-gif" src="/animations/waterfall.gif" alt="" />
-        <img className="gif-layer fireflies-gif" src="/animations/fireflies.gif" alt="" />
-        <img className="gif-layer birds-gif" src="/animations/birds.gif" alt="" />
+        {(current.id === "trailhead" || current.id === "camp") && <img className="gif-layer waterfall-gif" src="/animations/waterfall.gif" alt="" />}
+        {(current.id === "trailhead" || current.id === "camp" || current.id === "ruins" || current.id === "horizon") && <img className="gif-layer fireflies-gif" src="/animations/fireflies.gif" alt="" />}
+        {(current.id === "trailhead" || current.id === "camp" || current.id === "horizon") && <img className="gif-layer birds-gif" src="/animations/birds.gif" alt="" />}
         <div className="grain" />
       </div>
 
