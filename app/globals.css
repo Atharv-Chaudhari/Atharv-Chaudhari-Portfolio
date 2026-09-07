@@ -57,7 +57,7 @@ button:focus-visible,a:focus-visible{
 .world-vignette{
   position:absolute;
   inset:0;
-  background:radial-gradient(circle at 55% 40%,transparent 25%,rgba(1,7,5,.18) 62%,rgba(1,5,4,.78) 100%),linear-gradient(180deg,rgba(0,0,0,.08),transparent 45%,rgba(1,5,4,.8)}
+  background:radial-gradient(circle at 55% 40%,transparent 25%,rgba(1,7,5,.18) 62%,rgba(1,5,4,.78) 100%),linear-gradient(180deg,rgba(0,0,0,.08),transparent 45%,rgba(1,5,4,.8));}
 
 .world-mist{
   position:absolute;
