@@ -1,83 +1,61 @@
 # Atharv Chaudhari — AI/ML Engineering Portfolio
 
-A responsive, midnight-blue Next.js portfolio with animated CSS artwork, project case studies, client-side engineering simulations, experience/education, and a clearly separated Future Observatory.
-
-## Requirements
-
-- Node.js 20.9 or later
-- npm
-- A Vercel account for hosting
+A Next.js portfolio starter designed around a midnight-blue visual system, restrained motion, project case studies, and browser-based engineering demonstrations.
 
 ## Run locally
 
-1. Extract the ZIP.
-2. Open a terminal in the extracted `atharv-ai-portfolio` folder.
-3. Run:
+Requirements: Node.js 18.17+ (Node 20 LTS recommended).
 
 ```bash
 npm install
 npm run dev
 ```
 
-4. Open `http://localhost:3000`.
-
-To test a production build locally:
-
-```bash
-npm run build
-npm run start
-```
+Open http://localhost:3000.
 
 ## Deploy to Vercel
 
-### Option A — GitHub import (recommended)
+1. Extract this ZIP.
+2. Push the extracted project to a new GitHub repository.
+3. In Vercel, select **Add New → Project** and import the repository.
+4. Keep the framework preset as **Next.js**. Build command and output directory can remain at their defaults.
+5. Deploy. No environment variables are required for the starter.
 
-1. Extract the ZIP.
-2. Create a new GitHub repository and upload the **contents** of this folder (so `package.json` and `app/` are at repository root).
-3. In Vercel, choose **Add New → Project** and import that repository.
-4. Keep the framework preset as **Next.js**. Vercel should detect the build settings automatically.
-5. Click **Deploy**.
-
-### Option B — Vercel CLI
-
-From the project root:
+You can also use Vercel's CLI from the project folder:
 
 ```bash
 npm install
 npx vercel
 ```
 
-Follow the prompts to link the project. For a production deployment, run:
+## Before publishing — important content checklist
 
-```bash
-npx vercel --prod
-```
+This is a working starter, not a verification of your employment history or project outcomes. Update the placeholders in `components/Portfolio.tsx` and `app/layout.tsx` before making the site public:
 
-## Before publishing
+- Replace GitHub and LinkedIn URLs with your exact profile URLs.
+- Replace `hello@example.com` with your preferred public email.
+- Confirm employers, role names, dates, education and degree titles against your current resume.
+- Review every project description and distinguish your personal contribution from team delivery.
+- Add only metrics you can substantiate and public project links you are allowed to share.
+- Confirm the correct resume PDF and add it under `public/`, then link to it from the hero and contact sections if desired.
+- Replace `https://example.com` in metadata with your final Vercel/custom domain.
+- Review client confidentiality, accessibility, and mobile behavior.
 
-- The résumé page is included at `/resume` and can be printed or saved as PDF from the browser. Verify its contents against your latest résumé before publishing.
-- The GitHub links point to `https://github.com/Atharv-Chaudhari`; add direct project repository links where public sharing is permitted.
-- Verify the LinkedIn URL, email address, project names, certification titles, dates and reported metrics.
-- Confirm all client work is approved for public disclosure. Do not publish client names, private architecture, source code, credentials, or internal screenshots without permission.
-- The metrics shown are based on résumé/profile statements and are not independently verified by this template. Keep the context alongside each number or remove it if it cannot be substantiated.
-- The Systems Lab contains local simulations and illustrative evaluation scores. It does not call a live AI model or production infrastructure.
-- The Future Observatory is explicitly framed as interests and future exploration, not as completed quantum or robotics projects.
+## Included
 
-## What is included
-
-- `app/page.tsx` — main portfolio and interactions
-- `app/resume/page.tsx` — print-friendly résumé page
-- `app/globals.css` — responsive UI system, theme variables, motion and layouts
-- `app/layout.tsx` — page metadata and document shell
-- `public/favicon.svg` — custom AC favicon
-
-## Editing content
-
-Project descriptions and skills are defined near the top of `app/page.tsx` in the `projects`, `categories`, `capabilities`, and `milestones` arrays. The design is componentized in a single client page for easy initial deployment and iteration.
+- Responsive single-page portfolio
+- Midnight-blue visual system and abstract CSS hero illustration
+- Project cards with detail modals
+- Interactive simulated agent workflow
+- Interactive feature pipeline walkthrough
+- Illustrative model evaluation comparison
+- Professional experience and skill groups
+- Separate future-research section for quantum computing, human–AI convergence, and robotics
+- Light/dark toggle
+- Keyboard command palette (`Ctrl/⌘ + K`)
+- Reduced-motion toggle and reduced-motion preference support
+- No paid assets, API keys, or backend requirement
 
 ## Notes
 
-- No API keys or database are required for the included experience.
-- The light/dark toggle preference is saved in local browser storage.
-- `Ctrl/⌘ + K` opens the command palette on desktop.
-- Google Fonts are loaded from Google Fonts; a system-font fallback is defined.
+The interactive demos are deterministic browser-side simulations. They do not call live AI models and do not represent production benchmarks. The project content is editable starter copy; verify all facts and replace placeholder links before launch.
